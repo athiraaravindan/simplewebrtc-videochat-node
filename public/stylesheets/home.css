@@ -1,0 +1,43 @@
+p{
+	color:red;
+}
+#localVideo {
+    /*height: 500px;*/
+    width: 500px;
+    margin-top: 30px;
+    transform : scale(1) !important;
+    border-radius:40px;
+    overflow:hidden;
+}
+.control_panel{
+	text-align: center;
+}
+.panel_ul{
+	list-style-type: none;
+	text-align: center;
+}
+.panel_li{
+    float: left;
+    text-align: center;
+    border-right: 1px solid green;
+}
+.icon{
+    padding: 20px;
+    font-size: 25px;
+    cursor: pointer;
+    text-align: center;
+}
+h2{
+    text-align: center;
+    font-size: 40px;
+}
+.col-md-6{
+    text-align: center;
+}
+
+/* .container-fluid{
+    background-image: linear-gradient(to bottom right, rgb(138, 200, 150), rgb(200, 160, 156));
+} */
+/* body{
+    background-color: #b29408;
+} */

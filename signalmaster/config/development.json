@@ -1,0 +1,36 @@
+
+{
+  "isDev": false,
+  "server": {
+    "port": 9443,
+    "/* secure */": "/* whether this connects via https */",
+    "secure": true,
+    "key": "/home/rahul/Desktop/one2onegit/one2one_node/signalmaster/config/sslcerts/server.key",
+    "cert":"/home/rahul/Desktop/one2onegit/one2one_node/signalmaster/config/sslcerts/server.cert",
+    "password": null
+  },
+  "rooms": {
+    "/* maxClients */": "/* maximum number of clients per room. 0 = no limit */",
+    "maxClients": 0
+  },
+  "stunservers": [
+    {
+      "urls": "stun:turn.tokbird.com:443"
+    }
+  ],
+  "turnservers": [
+    {
+      "urls": ["turn:turn.tokbird.com:443?transport=udp"],
+      "username": "turn",
+      "secret": "123456ab",
+      "expiry": 86400
+    },
+    {
+      "urls": "turn:turn.tokbird.com:443?transport=tcp",
+        "username": "turn",
+        "secret": "123456ab",
+        "expiry": 86400
+ 
+    }
+  ]
+ }
