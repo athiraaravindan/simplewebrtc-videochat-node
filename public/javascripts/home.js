@@ -1,9 +1,11 @@
 $(document).ready(function(){
 	$('#peer_add').hide();
 	$('#peer_remove').hide();
+	// $(this).css('background-color', 'red');
 
 });
-document.body.style= "background-color: #8c920c;"
+var id
+// document.body.style= "background-color: #8c920c;"
 var room = window.location.pathname.split("/").pop()
 var webrtc = new SimpleWebRTC({
 	localVideoEl: 'localVideo',
@@ -11,6 +13,7 @@ var webrtc = new SimpleWebRTC({
 	autoRequestMedia: true,
 	debug: false,
 	detectSpeakingEvents: true,
+	nick : "athira",
 	url:"https://localhost:9443",
 	media: { 
         audio: true,
@@ -23,9 +26,28 @@ var webrtc = new SimpleWebRTC({
 	}
 	}
 });
+webrtc.on('connectionReady', function (sessionId) {
+	console.log(sessionId)
+	id = sessionId;
+})
 webrtc.on('readyToCall', function () {
 	if(room){
-		webrtc.joinRoom(room);	
+		webrtc.joinRoom(room, (error,roomdes)=>{
+			let clients = roomdes.clients;
+			let length = Object.keys(clients).length
+			console.log(roomdes.clients)
+			console.log(length)
+			// window.peerlength = length
+		});
+		// if(length < 2){
+			webrtc.connection.on('message', function(data){
+				if(data.type === 'chat'){
+					console.log(length)
+				  console.log('chat received',data);
+				  $('#messages').append('<br>' + data.payload.nick + ':<br>' + data.payload.message);
+				}
+			});
+		// }	
 	}
 });
 webrtc.on('videoAdded',  (video, peer)=> {
@@ -48,10 +70,12 @@ if(this.peer_length <2){
 		video.style.marginTop = "30px";
 		remotes.appendChild(d);
 	}
-
+	
 }
 // else{
-// 	toastr.info('maximum peers added')
+	// webrtc.sendDirectlyToAll('max_peer_added');
+
+	// toastr.info('maximum peers added')
 // }
 	// console.log(room)
 	// let peer_length = peer.parent.peers
@@ -87,14 +111,23 @@ if (remotes && el) {
 		toastr.info('peer video removed');
 	}
 	}
-// }
 });
+
 webrtc.on('channelMessage', (peer, channel, data)=> {
+	// console.log(peer.parent.peer)
     if (channel === 'video_pause') {
 		toastr.warning('peer video paused')
 		console.log(channel)
-    } else if (channel === 'presence') {
-    }
+    } else if (channel === 'video_play') {
+		toastr.success('peer video resume')
+    } else if (channel === 'audio_pause'){
+		toastr.warning('peer audio paused')
+	} else if (channel === 'audio play'){
+		toastr.success('peer audio resume')
+	} 
+	// else if ( channel === 'max_peer_added'){
+	// 	toastr.info('maximum peers added')
+	// }
 });
 
 $(window).load(function(){
@@ -113,6 +146,7 @@ $('#video_play').click(function(){
 	$('#video_play').hide();
 	$('#video_pause').show();
 	webrtc.resumeVideo();
+	webrtc.sendDirectlyToAll('video_play');
 	toastr.success('video resume');
 
 });
@@ -121,6 +155,7 @@ $('#audio_pause').click(function(){
 	$('#audio_pause').hide();
 	$('#audio_play').show();
 	webrtc.mute();
+	webrtc.sendDirectlyToAll('audio_pause')
 	toastr.warning('audio paused');
 
 });
@@ -129,6 +164,13 @@ $('#audio_play').click(function(){
 	$('#audio_play').hide();
 	$('#audio_pause').show();
 	webrtc.unmute();
+	webrtc.sendDirectlyToAll('audio_play')
 	toastr.success('audio resume');
-
 });
+
+$('#send').click(function(){
+	var msg = $('#text').val();
+	webrtc.sendToAll('chat', {message: msg, nick: webrtc.config.nick});
+	$('#messages').append('<br>You:<br>' + msg);
+	$('#text').val('');
+  });
