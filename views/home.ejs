@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<link rel="stylesheet" type="text/css" href="../stylesheets/home.css">
 	<link rel="shortcut icon" href="/">
@@ -12,55 +13,55 @@
 
 <body>
 	<div class="container-fluid">
+		
+		<!-- <i class="fas fa-video-slash"></i> -->
 		<div class="row">
 			<!-- <h2 id="h2">Video call</h2> -->
+			<h4 id="h4"></h4>
+			<h5 id="h5"></h5>
 			<div class="col-md-12">
 				<div class="col-md-6">
+					<div class="avatharimg">
+						<img src="../images/avathar.png">
+					</div>
 					<video id="localVideo"></video>
 				</div>
 				<div class="col-md-6" id="remoteVideos">
+						<!-- <i class="fas fa-video-slash"></i> -->
+
+				</div>
+				<div class="remoteimg">
+					<img src="../images/avathar.png">
 				</div>
 			</div>
 		</div>
-	
-		<div class="row button_row">
-			<div class="col-md-5"></div>
-			<div class="col-md-2">
-				<div class="control_panel">
-					<ul class="panel_ul">
-						<li class="panel_li">
-							<span id="video_pause" class="icon ">
-								<i class="fas fa-video"></i>
-							</span>
-							<span id="video_play" class="icon ">
-								<i class="fas fa-video-slash"></i>
-							</span>
-						</li>
-						<li>
-							<span id="audio_pause" class="icon">
-								<i class="fas fa-microphone"></i>
-							</span>
-							<span id="audio_play" class="icon">
-								<i class="fa fa-microphone-slash" aria-hidden="true"></i>
-							</span>
-						</li>
-					</ul>
+
+		<div class="row button_row" id="pannel_row">
+			<div class="col-sm-12">
+				<div class="forvideoicon">
+					<span class="video">
+							<i class="fas fa-video"  id="video_pause" title="video pause"></i>
+							<i class="fas fa-video-slash" id="video_play" title="video play"></i>
+					</span>
+					<!-- <hr width="1" size="500"> -->
+					<span class="vl"></span>
+					<span class="audio">
+							<i class="fa fa-microphone-slash" aria-hidden="true" id="audio_play" title="audio pause"></i>
+							<i class="fas fa-microphone" id="audio_pause" title="audio play"></i>
+					</span>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-5"></div>
 		</div>
 		<div class="row">
-			<div id="messages"></div>
-			<input type="text" id="text">
-			<input type="button" id="send" value="send">
 		</div>
-		
+
 	</div>
-	<script type="text/javascript" src="../javascripts/simplewebrtc-with-adapter.bundle.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-	<script type="text/javascript" src="../javascripts/home.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<script type="text/javascript" src="../javascripts/simplewebrtc-with-adapter.bundle.js"></script>
+	<script type="text/javascript" src="../javascripts/home.js"></script>
 
 
 </body>
